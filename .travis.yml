@@ -3,6 +3,7 @@ services:
   - docker
 
 before_install:
+  - ls -la ./client
   - docker build -t krigar1184/react-test -f ./client/Dockerfile.dev ./client
 
 script:
