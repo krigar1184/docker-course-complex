@@ -1,0 +1,22 @@
+language: generic
+services:
+  - docker
+
+before_install:
+  - docker build -t krigar1184/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true krigar1184/react-test npm run test
+
+after_success:
+  - docker build -t krigar1184/complex-client ./client
+  - docker build -t krigar1184/complex-nginx ./nginx
+  - docker build -t krigar1184/complex-server ./server
+  - docker build -t krigar1184/complex-worker ./worker
+
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+  - docker push krigar1184/complex-client
+  - docker push krigar1184/complex-nginx
+  - docker push krigar1184/complex-server
+  - docker push krigar1184/complex-worker
