@@ -3,7 +3,6 @@ services:
   - docker
 
 before_install:
-  - ls -la ./client
   - docker build -t krigar1184/react-test -f ./client/Dockerfile.dev ./client
 
 script:
@@ -21,3 +20,15 @@ after_success:
   - docker push krigar1184/complex-nginx
   - docker push krigar1184/complex-server
   - docker push krigar1184/complex-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "complex-docker"
+  env: "ComplexDocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-803441828173"
+  bucket_path: "complex-docker"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
