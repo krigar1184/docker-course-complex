@@ -26,7 +26,7 @@ deploy:
   provider: elasticbeanstalk
   region: "us-east-2"
   app: "docker-course-complex"
-  env: "DockerCourseComplex-env"
+  env: "DockerCourseComplex-env-1"
   bucket_name: "elasticbeanstalk-us-east-2-803441828173"
   bucket_path: "docker-course-complex"
   on:
