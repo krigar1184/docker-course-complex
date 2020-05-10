@@ -22,12 +22,13 @@ after_success:
   - docker push krigar1184/complex-worker
 
 deploy:
+  edge: true
   provider: elasticbeanstalk
   region: "us-east-2"
   app: "docker-course-complex"
   env: "DockerCourseComplex-env"
   bucket_name: "elasticbeanstalk-us-east-2-803441828173"
-  bucket_path: "complex-docker"
+  bucket_path: "docker-course-complex"
   on:
     branch: master
   access_key_id: $AWS_ACCESS_KEY
